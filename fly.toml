@@ -1,5 +1,19 @@
-app = "fly-log-shipper-example"
+app = "zinnia-logger"
+primary_region = "iad"
 
-[metrics]
-  port = 9598
-  path = "/metrics"
+[build]
+image = "flyio/log-shipper:latest"
+
+[http_service]
+auto_start_machines = true
+auto_stop_machines = "off"
+force_https = true
+internal_port = 8_080
+min_machines_running = 0
+processes = ["app"]
+
+[[services]]
+internal_port = 8_686
+
+[[vm]]
+size = "shared-cpu-1x"
